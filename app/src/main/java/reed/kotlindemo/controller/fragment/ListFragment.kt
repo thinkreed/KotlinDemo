@@ -1,15 +1,17 @@
 package reed.kotlindemo.controller.fragment
 
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
 import reed.kotlindemo.R
+import reed.kotlindemo.component.DataFetcher
 import reed.kotlindemo.controller.adapter.ListAdapter
+import reed.kotlindemo.mvvm.viewmodels.SongsViewModel
 
 /**
  * Created by thinkreed on 2017/6/17.
@@ -26,7 +28,10 @@ class ListFragment : Fragment() {
 
         val recyclerView: RecyclerView? = view?.findViewById(R.id.list)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
-        recyclerView?.adapter = ListAdapter()
+        val adapter = ListAdapter()
+        DataFetcher.registerObserver(adapter)
+        recyclerView?.adapter = adapter
+        DataFetcher.getData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
     }
 
     companion object {

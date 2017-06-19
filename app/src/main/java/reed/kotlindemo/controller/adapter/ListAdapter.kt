@@ -2,21 +2,24 @@ package reed.kotlindemo.controller.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.squareup.picasso.Picasso
 import reed.kotlindemo.R
+import reed.kotlindemo.component.Observer
 import reed.kotlindemo.model.Model
 import reed.kotlindemo.model.Template
 import reed.kotlindemo.model.ViewHolder
 import reed.kotlindemo.mvvm.ViewGroupManager
+import reed.kotlindemo.mvvm.ViewModel
 import reed.kotlindemo.mvvm.viewmanagers.BaseViewManager
+import reed.kotlindemo.mvvm.viewmodels.EmptyViewModel
 
 /**
  * Created by thinkreed on 2017/6/17.
  */
 
-class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Observer {
 
-    var data: MutableList<Model> = ArrayList()
+
+    private var data: MutableList<Model> = mutableListOf()
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is ViewHolder) {
@@ -25,12 +28,12 @@ class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        return when(Template.values()[viewType]) {
-            Template.ITEM_MUSIC_INFO -> ViewHolder(ViewGroupManager(parent)
+        return when (Template.values()[viewType]) {
+            Template.ITEM_MUSIC_INFO -> ViewHolder(ViewGroupManager(parent, R.layout.item_song)
                     .add(R.id.title, BaseViewManager())
                     .add(R.id.description, BaseViewManager())
                     .add(R.id.cover, BaseViewManager()))
-            else -> ViewHolder(ViewGroupManager(parent))
+            else -> throw IllegalArgumentException("not support type")
         }
     }
 
@@ -40,6 +43,11 @@ class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return data[position].template.ordinal
+    }
+
+    override fun onDataArrived(models: MutableList<Model>) {
+        data = models
+        notifyDataSetChanged()
     }
 
 }

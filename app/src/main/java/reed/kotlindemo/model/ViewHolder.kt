@@ -7,4 +7,4 @@ import reed.kotlindemo.mvvm.ViewGroupManager
  * Created by thinkreed on 2017/6/17.
  */
 
-class ViewHolder(val viewGroupManager: ViewGroupManager) : RecyclerView.ViewHolder(viewGroupManager.viewGroup)
+class ViewHolder(val viewGroupManager: ViewGroupManager) : RecyclerView.ViewHolder(viewGroupManager.rootView)

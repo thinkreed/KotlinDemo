@@ -2,7 +2,8 @@ package reed.kotlindemo.mvvm.viewmanagers
 
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
+import com.bumptech.glide.Glide
+import reed.kotlindemo.R
 import reed.kotlindemo.model.Model
 import reed.kotlindemo.mvvm.ViewManager
 
@@ -14,16 +15,21 @@ class BaseViewManager : ViewManager() {
 
     override fun bind(model: Model) {
 
-        when (view) {
+        when (id) {
 
-            is TextView -> {
+            R.id.title -> {
                 val tv = view as TextView
                 tv.text = model.title
             }
 
-            is ImageView -> {
+            R.id.description -> {
+                val tv = view as TextView
+                tv.text = model.description
+            }
+
+            R.id.cover -> {
                 val img = view as ImageView
-                Picasso.with(view?.context).load(model.uri).into(img)
+                Glide.with(img.context).load(model.cover.toString()).into(img)
             }
         }
     }

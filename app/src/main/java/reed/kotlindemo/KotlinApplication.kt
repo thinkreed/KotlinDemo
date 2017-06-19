@@ -7,7 +7,14 @@ import android.app.Application
  */
 
 class KotlinApplication : Application() {
+
     override fun onCreate() {
         super.onCreate()
+        instance = this
+    }
+
+    companion object {
+        lateinit var instance: KotlinApplication
+            private set
     }
 }
