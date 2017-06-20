@@ -29,7 +29,7 @@ class BaseViewManager : ViewManager() {
 
             R.id.cover -> {
                 val img = view as ImageView
-                Glide.with(img.context).load(model.cover.toString()).into(img)
+                Glide.with(img.context).load(model.cover).into(img)
             }
         }
     }

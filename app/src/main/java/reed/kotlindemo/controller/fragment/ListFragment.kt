@@ -29,7 +29,9 @@ class ListFragment : Fragment() {
         val recyclerView: RecyclerView? = view?.findViewById(R.id.list)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         val adapter = ListAdapter()
-        DataFetcher.registerObserver(adapter)
+        val songs = SongsViewModel(adapter)
+        DataFetcher.registerObserver(songs)
+        adapter.setViewModel(songs)
         recyclerView?.adapter = adapter
         DataFetcher.getData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
     }

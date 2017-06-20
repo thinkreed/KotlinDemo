@@ -16,14 +16,14 @@ import reed.kotlindemo.mvvm.viewmodels.EmptyViewModel
  * Created by thinkreed on 2017/6/17.
  */
 
-class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Observer {
+class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    private var data: MutableList<Model> = mutableListOf()
+    private lateinit var data: ViewModel
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is ViewHolder) {
-            holder.viewGroupManager.bind(data[position])
+            holder.viewGroupManager.bind(data.get(position))
         }
     }
 
@@ -38,16 +38,14 @@ class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(), Observer {
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return data.dataCount()
     }
 
     override fun getItemViewType(position: Int): Int {
-        return data[position].template.ordinal
+        return data.get(position).template.ordinal
     }
 
-    override fun onDataArrived(models: MutableList<Model>) {
-        data = models
-        notifyDataSetChanged()
+    fun setViewModel(viewModel: ViewModel) {
+        this.data = viewModel
     }
-
 }

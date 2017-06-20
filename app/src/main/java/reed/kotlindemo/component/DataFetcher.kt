@@ -24,7 +24,9 @@ import reed.kotlindemo.model.Template
 
 object DataFetcher {
 
-    private val observers = mutableListOf<Observer>()
+    private val observers by lazy {
+        mutableListOf<Observer>()
+    }
 
     fun getData(uri: Uri): Unit {
         launch(CommonPool) {
