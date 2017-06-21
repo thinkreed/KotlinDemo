@@ -11,8 +11,6 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.Response
 import reed.kotlindemo.KotlinApplication
-import reed.kotlindemo.R.id.cover
-import reed.kotlindemo.R.id.description
 import reed.kotlindemo.model.Model
 import reed.kotlindemo.model.Song
 import reed.kotlindemo.model.Template
@@ -28,17 +26,15 @@ object DataFetcher {
         mutableListOf<Observer>()
     }
 
-    fun getData(uri: Uri): Unit {
-        launch(CommonPool) {
-            when (uri.scheme) {
-                "http", "https" -> getHttpData(uri)
-                "file" -> getFileData(uri)
-                "content" -> getContentData(uri)
-                else -> throw IllegalArgumentException("not supported scheme")
-            }
+    fun getData(uri: Uri) = launch(CommonPool) {
+        when (uri.scheme) {
+            "http", "https" -> getHttpData(uri)
+            "file" -> getFileData(uri)
+            "content" -> getContentData(uri)
+            else -> throw IllegalArgumentException("not supported scheme")
         }
-
     }
+
 
     private suspend fun getHttpData(uri: Uri) {
         val client = OkHttpClient()
@@ -78,19 +74,15 @@ object DataFetcher {
         }
     }
 
-    private suspend fun notifyDataArrived(models: MutableList<Model>) {
-        observers.map { observer -> observer.onDataArrived(models) }
-    }
+    private suspend fun notifyDataArrived(models: MutableList<Model>) =
+            observers.map { observer -> observer.onDataArrived(models) }
 
-    fun registerObserver(observer: Observer) {
-        observers.add(observer)
-    }
+    fun registerObserver(observer: Observer) = observers.add(observer)
 
-    fun unregisterObserver(observer: Observer) {
-        observers.remove(observer)
-    }
 
-    fun clearObservers() {
-        observers.clear()
-    }
+    fun unregisterObserver(observer: Observer) = observers.remove(observer)
+
+
+    fun clearObservers() = observers.clear()
+
 }

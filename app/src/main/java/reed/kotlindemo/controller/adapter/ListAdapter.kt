@@ -2,6 +2,7 @@ package reed.kotlindemo.controller.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
+import com.reed.library.Inject
 import reed.kotlindemo.R
 import reed.kotlindemo.component.Observer
 import reed.kotlindemo.model.Model

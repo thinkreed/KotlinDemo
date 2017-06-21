@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import reed.kotlindemo.R
 import reed.kotlindemo.component.DataFetcher
 import reed.kotlindemo.controller.adapter.ListAdapter
 import reed.kotlindemo.mvvm.viewmodels.SongsViewModel
+import kotlinx.android.synthetic.main.fragment_list.*
 
 /**
  * Created by thinkreed on 2017/6/17.
@@ -25,14 +25,12 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val recyclerView: RecyclerView? = view?.findViewById(R.id.list)
-        recyclerView?.layoutManager = LinearLayoutManager(activity)
+        list.layoutManager = LinearLayoutManager(activity)
         val adapter = ListAdapter()
         val songs = SongsViewModel(adapter)
         DataFetcher.registerObserver(songs)
         adapter.setViewModel(songs)
-        recyclerView?.adapter = adapter
+        list.adapter = adapter
         DataFetcher.getData(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI)
     }
 
