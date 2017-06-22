@@ -2,16 +2,13 @@ package reed.kotlindemo.controller.adapter
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.reed.library.Inject
 import reed.kotlindemo.R
-import reed.kotlindemo.component.Observer
-import reed.kotlindemo.model.Model
 import reed.kotlindemo.model.Template
 import reed.kotlindemo.model.ViewHolder
 import reed.kotlindemo.mvvm.ViewGroupManager
 import reed.kotlindemo.mvvm.ViewModel
 import reed.kotlindemo.mvvm.viewmanagers.BaseViewManager
-import reed.kotlindemo.mvvm.viewmodels.EmptyViewModel
+import javax.inject.Inject
 
 /**
  * Created by thinkreed on 2017/6/17.
@@ -20,7 +17,7 @@ import reed.kotlindemo.mvvm.viewmodels.EmptyViewModel
 class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    private lateinit var data: ViewModel
+    @Inject lateinit var data: ViewModel
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is ViewHolder) {
