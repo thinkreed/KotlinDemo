@@ -8,7 +8,6 @@ import reed.kotlindemo.model.ViewHolder
 import reed.kotlindemo.mvvm.ViewGroupManager
 import reed.kotlindemo.mvvm.ViewModel
 import reed.kotlindemo.mvvm.viewmanagers.BaseViewManager
-import javax.inject.Inject
 
 /**
  * Created by thinkreed on 2017/6/17.
@@ -17,7 +16,7 @@ import javax.inject.Inject
 class ListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    @Inject lateinit var data: ViewModel
+    lateinit var data: ViewModel
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
         if (holder is ViewHolder) {
