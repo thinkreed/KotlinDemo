@@ -6,6 +6,8 @@ import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
+import android.util.Log
+import reed.kotlindemo.algo.longest_palindromic_substring
 import reed.kotlindemo.controller.fragment.ListFragment
 
 class MainActivity : FragmentActivity() {
@@ -17,6 +19,7 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkPermission()
+        Log.d("thinkreed", longest_palindromic_substring("babcbabcbaccba"))
     }
 
     private fun checkPermission() {
